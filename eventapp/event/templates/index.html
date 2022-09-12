@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}{{event_name}}{% endblock %}
+
+{% block content %}
+<section class="home">
+    <div class="position-absolute top-50 start-50 translate-middle">
+        <div>
+            <div class="container text-center">
+                <img class="col align-self-center" src="{{event_icon}}" height="200" alt="" srcset="">
+            </div>
+            <div class="cuadro text container text-center">
+                
+            </div>
+        </div>
+
+    </div>
+</section>
+<div>
+    <div class="box">
+        <span></span>
+        <div class="content">
+            <h2 class="">Hover me!</h2>
+        </div>
+    </div>
+</div>
+<script>
+    formato_tiempo = (arg) => arg < 10 ? `0${arg}` : arg;
+    function cuenta_regresiva(arg) {
+        var fecha = new Date(arg);
+        var hoy = new Date();
+        var segundosTotales = (fecha - hoy) / 1000;
+        var dias = Math.floor(segundosTotales / 3600 / 24);
+        var horas = Math.floor(segundosTotales / 3600) % 24;
+        var minutos = Math.floor(segundosTotales / 60) % 60;
+        var segundos = Math.floor(segundosTotales) % 60;
+        return {
+            "dias": formato_tiempo(dias),
+            "horas": formato_tiempo(horas),
+            "minutos": formato_tiempo(minutos),
+            "segundos": formato_tiempo(segundos)
+        };
+    }
+    function imprimir() {
+        var arg = '{{event_start|date:"M d, Y"}}';
+        $('#dias').html(cuenta_regresiva(arg).dias);
+        $('#horas').html(cuenta_regresiva(arg).horas);
+        $('#minutos').html(cuenta_regresiva(arg).minutos);
+        $('#segundos').html(cuenta_regresiva(arg).segundos);
+    }
+    setInterval(imprimir, 1000);
+</script>
+{% endblock %}
